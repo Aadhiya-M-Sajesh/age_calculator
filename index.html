@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Advanced Age Calculator</title>
+  <link rel="stylesheet" href="style.css">
+  </head>
+<body>
+<div class="con">
+    <img src="https://tse1.mm.bing.net/th/id/OIP.rfii1kFRQdv0GexeEyk_MAAAAA?w=252&h=252&rs=1&pid=ImgDetMain&o=7&rm=3" alt="">
+</div>
+  <div class="container">
+    <h2>Advanced Age Calculator</h2>
+    <input type="text" id="name" placeholder="Enter your name"><br>
+    <input type="date" id="dob"><br>
+    <button onclick="calculateAge()">Calculate Age</button>
+
+    <div class="output" id="result"></div>
+  </div>
+
+  <script>
+    function calculateAge() {
+      const name = document.getElementById("name").value;
+      const dob = new Date(document.getElementById("dob").value);
+      const today = new Date();
+
+      if (!name || isNaN(dob)) {
+        alert("Please enter both name and valid date of birth.");
+        return;
+      }
+
+      // Calculate age
+      let ageYears = today.getFullYear() - dob.getFullYear();
+      let ageMonths = today.getMonth() - dob.getMonth();
+      let ageDays = today.getDate() - dob.getDate();
+
+      if (ageDays < 0) {
+        ageMonths--;
+        ageDays += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+      }
+
+      if (ageMonths < 0) {
+        ageYears--;
+        ageMonths += 12;
+      }
+
+      // Day of the week born
+      const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      const bornDay = daysOfWeek[dob.getDay()];
+
+      // Next birthday
+      const nextBirthday = new Date(today.getFullYear(), dob.getMonth(), dob.getDate());
+      if (nextBirthday < today) {
+        nextBirthday.setFullYear(today.getFullYear() + 1);
+      }
+      const diffTime = nextBirthday - today;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      // Output
+      document.getElementById("result").innerHTML = `
+        <p>Hello <span class="highlight">${name}</span>!</p>
+        <p>🎉 You are <span class="highlight">${ageYears} years, ${ageMonths} months, ${ageDays} days</span> old.</p>
+        <p>📅 You were born on a <span class="highlight">${bornDay}</span>.</p>
+        <p>⏳ Your next birthday is in <span class="highlight">${diffDays} days</span>.</p>
+      `;
+    }
+  </script>
+
+</body>
+</html>
