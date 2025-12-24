@@ -14,8 +14,8 @@
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 
-  display: flex;              /* ⭐ important */
-  gap: 30px;                  /* space between image & content */
+  display: flex;              
+  gap: 30px;                 
   align-items: center;
 }
 
